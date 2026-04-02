@@ -1,0 +1,44 @@
+name: Deploy to InfinityFree
+
+on:
+  push:
+    branches:
+      - main  # mainにpushされた時に発火
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' # InfinityFreeのPHPバージョンに合わせる
+
+      - name: Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Install NPM Dependencies & Build
+        run: |
+          npm install
+          npm run build # Vite等を使っている場合
+
+      # FTPでファイルをアップロード
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # InfinityFreeの公開ディレクトリに合わせて調整
+          local-dir: ./
+          server-dir: /htdocs/ 
+          # vendorやnode_modulesを毎回全部送ると遅いので差分のみ
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            storage/*.key
