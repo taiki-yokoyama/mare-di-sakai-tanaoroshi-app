@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     actor_user_id BIGINT UNSIGNED NULL,
     subject_type VARCHAR(100) NOT NULL,
     subject_id BIGINT UNSIGNED NULL,
-    payload_json JSON NULL,
+    payload_json LONGTEXT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     KEY idx_audit_logs_actor_user_id (actor_user_id),

@@ -10,7 +10,8 @@
 ## セットアップ
 1. MySQL に `init.sql` を流し込みます。
 2. `config/app.php` の DB 接続情報を環境に合わせて変更します。
-3. ブラウザで `index.php` を開きます。
+3. PHP がある環境なら `php -S localhost:8000` で起動します。
+4. ブラウザで `http://localhost:8000` を開きます。
 
 ## 初期アカウント
 - Email: `admin@example.com`
