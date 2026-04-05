@@ -6,7 +6,7 @@ return [
     'db' => [
         'host' => 'sql104.infinityfree.com',
         'port' => 3306,
-        'database' => 'mare_di_sakai',
+        'database' => 'if0_41555877_maredisakai',
         'username' => 'if0_41555877',
         'password' => 'LOCCesd5myNo7D',
     ],
