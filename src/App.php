@@ -52,34 +52,34 @@ final class App
 
         switch ($page) {
             case 'login':
-                $title = 'Login';
+                $title = 'ログイン';
                 $content = $this->renderTemplate(__DIR__ . '/Pages/login.php', [
                     'appName' => app_name(),
                 ]);
                 break;
             case 'items':
-                $title = 'Items';
+                $title = '商品';
                 $content = $this->renderTemplate(__DIR__ . '/Pages/items.php', [
                     'inventoryService' => $this->inventoryService,
                     'currentUser' => $currentUser,
                 ]);
                 break;
             case 'sessions':
-                $title = 'Sessions';
+                $title = 'セッション';
                 $content = $this->renderTemplate(__DIR__ . '/Pages/sessions.php', [
                     'inventoryService' => $this->inventoryService,
                     'currentUser' => $currentUser,
                 ]);
                 break;
             case 'users':
-                $title = 'Users';
+                $title = 'ユーザー';
                 $content = $this->renderTemplate(__DIR__ . '/Pages/users.php', [
                     'inventoryService' => $this->inventoryService,
                     'currentUser' => $currentUser,
                 ]);
                 break;
             default:
-                $title = 'Dashboard';
+                $title = 'ダッシュボード';
                 $content = $this->renderTemplate(__DIR__ . '/Pages/dashboard.php', [
                     'inventoryService' => $this->inventoryService,
                     'currentUser' => $currentUser,
@@ -107,12 +107,12 @@ final class App
                         request_string('password'),
                         request_bool('remember')
                     );
-                    flash_set('success', 'Welcome back, ' . $user->name() . '.');
+                    flash_set('success', 'おかえりなさい、' . $user->name() . 'さん。');
                     redirect_to(url('dashboard'));
                     break;
                 case 'logout':
                     $this->authService->logout();
-                    flash_set('success', 'Logged out.');
+                    flash_set('success', 'ログアウトしました。');
                     redirect_to(url('login'));
                     break;
                 case 'item-save':
@@ -122,28 +122,28 @@ final class App
                         request_string('sku'),
                         request_string('name'),
                         request_string('barcode') !== '' ? request_string('barcode') : null,
-                        request_string('unit', 'pcs'),
+                        request_string('unit', '個'),
                         request_string('current_stock_qty', '0'),
                         $this->currentUserId()
                     );
-                    flash_set('success', 'Item saved.');
+                    flash_set('success', '商品を保存しました。');
                     redirect_to(url('items'));
                     break;
                 case 'item-delete':
                     $this->ensureAuthenticated();
                     $this->inventoryService->deleteItem(request_int('item_id'), $this->currentUserId());
-                    flash_set('success', 'Item deleted.');
+                    flash_set('success', '商品を削除しました。');
                     redirect_to(url('items'));
                     break;
                 case 'session-create':
                     $this->ensureAuthenticated();
                     $session = $this->inventoryService->createSession(
                         request_string('name'),
-                        request_string('location_name', 'Main'),
+                        request_string('location_name', '本店'),
                         request_string('memo'),
                         $this->currentUserId()
                     );
-                    flash_set('success', 'Session created.');
+                    flash_set('success', 'セッションを作成しました。');
                     redirect_to(url('sessions', ['id' => $session->id()]));
                     break;
                 case 'count-save':
@@ -155,14 +155,14 @@ final class App
                         request_string('counted_qty', '0'),
                         $this->currentUserId()
                     );
-                    flash_set('success', 'Count saved.');
+                    flash_set('success', '数量を保存しました。');
                     redirect_to(url('sessions', ['id' => $sessionId]));
                     break;
                 case 'session-close':
                     $this->ensureAuthenticated();
                     $sessionId = request_int('session_id');
                     $this->inventoryService->closeSession($sessionId, $this->currentUserId());
-                    flash_set('success', 'Session closed.');
+                    flash_set('success', 'セッションを終了しました。');
                     redirect_to(url('sessions', ['id' => $sessionId]));
                     break;
                 case 'user-save':
@@ -174,21 +174,21 @@ final class App
                         'staff',
                         $this->currentUserId()
                     );
-                    flash_set('success', 'User created.');
+                    flash_set('success', 'ユーザーを作成しました。');
                     redirect_to(url('users'));
                     break;
                 case 'user-delete':
                     $this->ensureAuthenticated();
                     $userId = request_int('user_id');
                     if ($userId === $this->currentUserId()) {
-                        throw new \RuntimeException('You cannot delete the current account.');
+                        throw new \RuntimeException('現在のアカウントは削除できません。');
                     }
                     $this->inventoryService->deleteUser($userId, $this->currentUserId());
-                    flash_set('success', 'User deleted.');
+                    flash_set('success', 'ユーザーを削除しました。');
                     redirect_to(url('users'));
                     break;
                 default:
-                    throw new \RuntimeException('Unsupported action.');
+                    throw new \RuntimeException('未対応の操作です。');
             }
         } catch (Throwable $throwable) {
             flash_set('error', $throwable->getMessage());
@@ -210,7 +210,7 @@ final class App
     private function ensureAuthenticated(): void
     {
         if ($this->authService->currentUser() === null) {
-            throw new \RuntimeException('Please log in first.');
+            throw new \RuntimeException('先にログインしてください。');
         }
     }
 
@@ -218,7 +218,7 @@ final class App
     {
         $user = $this->authService->currentUser();
         if ($user === null || $user->id() === null) {
-            throw new \RuntimeException('Please log in first.');
+            throw new \RuntimeException('先にログインしてください。');
         }
 
         return $user->id();

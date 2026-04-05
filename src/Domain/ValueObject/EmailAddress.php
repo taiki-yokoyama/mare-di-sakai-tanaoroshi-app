@@ -18,7 +18,7 @@ final class EmailAddress
     {
         $normalized = strtolower(trim($value));
         if ($normalized === '' || filter_var($normalized, FILTER_VALIDATE_EMAIL) === false) {
-            throw new InventoryDomainException('Invalid email address.');
+            throw new InventoryDomainException('メールアドレスの形式が正しくありません。');
         }
 
         return new self($normalized);

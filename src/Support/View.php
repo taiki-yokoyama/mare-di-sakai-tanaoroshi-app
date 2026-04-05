@@ -31,7 +31,7 @@ function render_layout(string $title, string $activePage, ?array $user, string $
             <div class="brand-mark">M</div>
             <div>
                 <div class="brand-title"><?= e($appName) ?></div>
-                <div class="brand-subtitle">Mobile-first inventory counting</div>
+                <div class="brand-subtitle">モバイル優先の在庫棚卸し</div>
             </div>
         </div>
 
@@ -39,12 +39,12 @@ function render_layout(string $title, string $activePage, ?array $user, string $
             <div class="topbar-actions">
                 <div class="user-pill">
                     <span class="user-name"><?= e($user['name']) ?></span>
-                    <span class="user-role"><?= e($user['role']) ?></span>
+                    <span class="user-role"><?= e(user_role_label((string) $user['role'])) ?></span>
                 </div>
                 <form method="post" action="<?= e(url('logout')) ?>">
                     <?= csrf_input() ?>
                     <input type="hidden" name="action" value="logout">
-                    <button class="btn btn-ghost btn-sm" type="submit">Logout</button>
+                    <button class="btn btn-ghost btn-sm" type="submit">ログアウト</button>
                 </form>
             </div>
         <?php endif; ?>
@@ -52,10 +52,10 @@ function render_layout(string $title, string $activePage, ?array $user, string $
 
     <?php if ($isAuthenticated): ?>
         <nav class="nav-tabs">
-            <a class="nav-tab<?= $activePage === 'dashboard' ? ' is-active' : '' ?>" href="<?= e(url('dashboard')) ?>">Dashboard</a>
-            <a class="nav-tab<?= $activePage === 'items' ? ' is-active' : '' ?>" href="<?= e(url('items')) ?>">Items</a>
-            <a class="nav-tab<?= $activePage === 'sessions' ? ' is-active' : '' ?>" href="<?= e(url('sessions')) ?>">Sessions</a>
-            <a class="nav-tab<?= $activePage === 'users' ? ' is-active' : '' ?>" href="<?= e(url('users')) ?>">Users</a>
+            <a class="nav-tab<?= $activePage === 'dashboard' ? ' is-active' : '' ?>" href="<?= e(url('dashboard')) ?>">ダッシュボード</a>
+            <a class="nav-tab<?= $activePage === 'items' ? ' is-active' : '' ?>" href="<?= e(url('items')) ?>">商品</a>
+            <a class="nav-tab<?= $activePage === 'sessions' ? ' is-active' : '' ?>" href="<?= e(url('sessions')) ?>">セッション</a>
+            <a class="nav-tab<?= $activePage === 'users' ? ' is-active' : '' ?>" href="<?= e(url('users')) ?>">ユーザー</a>
         </nav>
     <?php endif; ?>
 

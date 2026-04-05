@@ -18,7 +18,7 @@ final class ItemCode
     {
         $normalized = strtoupper(trim($value));
         if ($normalized === '' || !preg_match('/^[A-Z0-9][A-Z0-9_-]{0,31}$/', $normalized)) {
-            throw new InventoryDomainException('Invalid item code.');
+            throw new InventoryDomainException('商品コードの形式が正しくありません。');
         }
 
         return new self($normalized);

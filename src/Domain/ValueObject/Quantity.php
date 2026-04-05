@@ -18,12 +18,12 @@ final class Quantity
     {
         $normalized = trim(str_replace(',', '.', $value));
         if ($normalized === '' || !is_numeric($normalized)) {
-            throw new InventoryDomainException('Quantity must be numeric.');
+            throw new InventoryDomainException('数量は数値で入力してください。');
         }
 
         $floatValue = round((float) $normalized, 3);
         if ($floatValue < 0) {
-            throw new InventoryDomainException('Quantity must be zero or greater.');
+            throw new InventoryDomainException('数量は0以上で入力してください。');
         }
 
         return new self($floatValue);
@@ -32,7 +32,7 @@ final class Quantity
     public static function fromFloat(float $value): self
     {
         if ($value < 0) {
-            throw new InventoryDomainException('Quantity must be zero or greater.');
+            throw new InventoryDomainException('数量は0以上で入力してください。');
         }
 
         return new self($value);
@@ -57,7 +57,7 @@ final class Quantity
     {
         $result = $this->value - $other->value;
         if ($result < 0) {
-            throw new InventoryDomainException('Resulting quantity cannot be negative.');
+            throw new InventoryDomainException('計算結果の数量をマイナスにすることはできません。');
         }
 
         return new self($result);

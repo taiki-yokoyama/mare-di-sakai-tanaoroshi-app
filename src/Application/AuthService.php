@@ -61,11 +61,11 @@ final class AuthService
     {
         $user = $this->users->findByEmail($email);
         if ($user === null) {
-            throw new RuntimeException('Invalid email or password.');
+            throw new RuntimeException('メールアドレスまたはパスワードが正しくありません。');
         }
 
         if (!$this->hasher->verify($password, $user->passwordSalt(), $user->passwordHash())) {
-            throw new RuntimeException('Invalid email or password.');
+            throw new RuntimeException('メールアドレスまたはパスワードが正しくありません。');
         }
 
         session_regenerate_id(true);

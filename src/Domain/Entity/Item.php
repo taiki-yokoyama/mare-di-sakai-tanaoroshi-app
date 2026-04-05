@@ -49,11 +49,11 @@ final class Item
         $unit = trim($unit);
 
         if ($name === '') {
-            throw new InventoryDomainException('Item name is required.');
+            throw new InventoryDomainException('商品名は必須です。');
         }
 
         if ($unit === '') {
-            throw new InventoryDomainException('Item unit is required.');
+            throw new InventoryDomainException('商品単位は必須です。');
         }
 
         $barcode = $barcode !== null ? trim($barcode) : null;
@@ -89,11 +89,11 @@ final class Item
         $barcode = $barcode !== null ? trim($barcode) : null;
 
         if ($name === '') {
-            throw new InventoryDomainException('Item name is required.');
+            throw new InventoryDomainException('商品名は必須です。');
         }
 
         if ($unit === '') {
-            throw new InventoryDomainException('Item unit is required.');
+            throw new InventoryDomainException('商品単位は必須です。');
         }
 
         if ($barcode === '') {

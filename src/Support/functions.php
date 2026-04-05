@@ -70,7 +70,7 @@ function verify_csrf(): void
 
     $token = $_POST['csrf_token'] ?? '';
     if (!is_string($token) || !hash_equals(csrf_token(), $token)) {
-        throw new RuntimeException('Invalid CSRF token.');
+        throw new RuntimeException('CSRFトークンが不正です。');
     }
 }
 

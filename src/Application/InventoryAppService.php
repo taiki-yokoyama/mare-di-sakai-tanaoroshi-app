@@ -77,7 +77,7 @@ final class InventoryAppService
         } else {
             $item = $this->items->findById($id);
             if ($item === null) {
-                throw new InventoryDomainException('Item not found.');
+                throw new InventoryDomainException('商品が見つかりません。');
             }
             $item->update($name, $barcode, $unit, $quantity);
         }
@@ -98,7 +98,7 @@ final class InventoryAppService
     {
         $item = $this->items->findById($id);
         if ($item === null) {
-            throw new InventoryDomainException('Item not found.');
+            throw new InventoryDomainException('商品が見つかりません。');
         }
 
         $this->items->delete($id);
@@ -148,7 +148,7 @@ final class InventoryAppService
     {
         $session = $this->sessions->findById($sessionId);
         if ($session === null) {
-            throw new InventoryDomainException('Inventory session not found.');
+            throw new InventoryDomainException('セッションが見つかりません。');
         }
 
         $rows = $this->sessions->snapshotRows($sessionId);
@@ -188,14 +188,14 @@ final class InventoryAppService
     {
         $session = $this->sessions->findById($sessionId);
         if ($session === null) {
-            throw new InventoryDomainException('Inventory session not found.');
+            throw new InventoryDomainException('セッションが見つかりません。');
         }
 
         $session->ensureOpen();
 
         $item = $this->items->findById($itemId);
         if ($item === null) {
-            throw new InventoryDomainException('Item not found.');
+            throw new InventoryDomainException('商品が見つかりません。');
         }
 
         $quantity = Quantity::fromString($countedQty);
@@ -215,7 +215,7 @@ final class InventoryAppService
         try {
             $session = $this->sessions->findById($sessionId);
             if ($session === null) {
-                throw new InventoryDomainException('Inventory session not found.');
+                throw new InventoryDomainException('セッションが見つかりません。');
             }
 
             $session->ensureOpen();
@@ -237,7 +237,7 @@ final class InventoryAppService
             }
 
             if ($missing !== []) {
-                throw new InventoryDomainException('Please record all counts before closing: ' . implode(', ', $missing));
+                throw new InventoryDomainException('終了する前にすべての数量を登録してください: ' . implode(', ', $missing));
             }
 
             $this->sessions->markClosed($sessionId);
@@ -283,7 +283,7 @@ final class InventoryAppService
     {
         $user = $this->users->findById($id);
         if ($user === null) {
-            throw new InventoryDomainException('User not found.');
+            throw new InventoryDomainException('ユーザーが見つかりません。');
         }
 
         $this->users->delete($id);

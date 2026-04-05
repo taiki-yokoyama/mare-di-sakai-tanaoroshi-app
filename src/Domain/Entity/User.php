@@ -42,7 +42,7 @@ final class User
     ): self {
         $name = trim($name);
         if ($name === '') {
-            throw new \InvalidArgumentException('User name is required.');
+            throw new \InvalidArgumentException('ユーザー名は必須です。');
         }
 
         $role = trim($role) !== '' ? strtolower(trim($role)) : 'staff';

@@ -33,12 +33,27 @@ function session_status_label(string $status): string
 {
     switch (strtolower($status)) {
         case InventorySession::STATUS_OPEN:
-            return 'Open';
+            return '進行中';
         case InventorySession::STATUS_CLOSED:
-            return 'Closed';
+            return '終了';
         default:
-            return 'Draft';
+            return '下書き';
     }
+}
+
+function user_role_label(string $role): string
+{
+    switch (strtolower($role)) {
+        case 'admin':
+            return '管理者';
+        default:
+            return 'スタッフ';
+    }
+}
+
+function unit_label(string $unit): string
+{
+    return strtolower(trim($unit)) === 'pcs' ? '個' : $unit;
 }
 
 function progress_percent(int $counted, int $total): int

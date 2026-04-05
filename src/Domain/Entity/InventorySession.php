@@ -47,11 +47,11 @@ final class InventorySession
         $memo = trim($memo);
 
         if ($name === '') {
-            throw new InventoryDomainException('Session name is required.');
+            throw new InventoryDomainException('セッション名は必須です。');
         }
 
         if ($locationName === '') {
-            throw new InventoryDomainException('Location name is required.');
+            throw new InventoryDomainException('拠点名は必須です。');
         }
 
         return new self(null, $name, $locationName, self::STATUS_OPEN, $createdByUserId, $memo, date('Y-m-d H:i:s'), null);
@@ -87,7 +87,7 @@ final class InventorySession
     public function ensureOpen(): void
     {
         if ($this->status !== self::STATUS_OPEN) {
-            throw new InventoryDomainException('Inventory session is already closed.');
+            throw new InventoryDomainException('このセッションはすでに終了しています。');
         }
     }
 

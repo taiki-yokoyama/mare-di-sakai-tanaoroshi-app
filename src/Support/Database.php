@@ -27,7 +27,7 @@ final class Database
         $password = getenv('DB_PASSWORD') ?: (string) ($dbConfig['password'] ?? '');
 
         if ($database === '' || $username === '') {
-            throw new RuntimeException('Database configuration is missing. Update config/app.php.');
+            throw new RuntimeException('データベース設定が不足しています。config/app.php を確認してください。');
         }
 
         $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $host, $port, $database);
@@ -39,7 +39,7 @@ final class Database
                 PDO::ATTR_EMULATE_PREPARES => false,
             ]);
         } catch (PDOException $exception) {
-            throw new RuntimeException('Database connection failed: ' . $exception->getMessage(), 0, $exception);
+            throw new RuntimeException('データベース接続に失敗しました: ' . $exception->getMessage(), 0, $exception);
         }
 
         return self::$pdo;
