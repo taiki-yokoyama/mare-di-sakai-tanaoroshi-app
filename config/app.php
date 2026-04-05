@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'app_name' => 'mare-di-sakai-tanaoroshi-app',
+    'app_name' => '棚卸し管理アプリ',
     'db' => [
         'host' => 'sql104.infinityfree.com',
         'port' => 3306,
